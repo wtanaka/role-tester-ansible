@@ -1,0 +1,61 @@
+driver:
+  name: docker
+  use_sudo: <% if ENV['TRAVIS'] then true else false end %>
+
+platforms:
+
+  - name: ubuntu-trusty-docker
+    driver_config:
+      use_cache: true
+      image: ubuntu:14.04
+
+  - name: ubuntu-wily-docker
+    driver_config:
+      use_cache: true
+      image: ubuntu:15.10
+
+# Non-deterministically, gets this error:
+# fatal: [ubuntu-xenial-docker] => failed to parse: bash: warning: setlocale:
+# LC_ALL: cannot change locale (en_US.UTF-8)
+# - name: ubuntu-xenial-docker
+#   driver_config:
+#     use_cache: true
+#     image: ubuntu:16.04
+
+provisioner:
+  name: ansible_push
+  idempotency_test: true
+  support_older_version: true
+  playbook: kitchen-playbook.yml
+  extra_vars:
+    role_under_test: <%= ENV['ROLE_UNDER_TEST'] %>
+
+suites:
+
+  - name: ansible-system
+
+#  - name: ansible1.6.1
+#    provisioner:
+#      ansible_playbook_bin: ansible1.6.1/bin/ansible-playbook
+#
+#  - name: ansible1.7.2
+#    provisioner:
+#      ansible_playbook_bin: ansible1.7.2/bin/ansible-playbook
+#
+#  - name: ansible1.8.4
+#    provisioner:
+#      ansible_playbook_bin: ansible1.8.4/bin/ansible-playbook
+#
+#  - name: ansible1.9.4
+#    provisioner:
+#      ansible_playbook_bin: ansible1.9.4/bin/ansible-playbook
+#
+#  - name: ansible2.0.0
+#    provisioner:
+#      ansible_playbook_bin: ansible2.0.0/bin/ansible-playbook
+
+verifier:
+# TODO
+#  name: serverspec
+#  additional_install_command: mkdir -p /tmp/kitchen
+  name: shell
