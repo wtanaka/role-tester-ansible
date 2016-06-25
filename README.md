@@ -9,6 +9,13 @@ wtanaka.bundler
 Usage
 -----
 
+Run this command to execute tests:
+
+```
+wget -O- bit.ly/ansibletest | sh
+```
+
+
 License
 -------
 

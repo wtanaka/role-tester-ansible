@@ -1,9 +1,27 @@
 #!/bin/sh
 # Copyright (C) 2016 Wesley Tanaka <http://wtanaka.com/>
-PROJECT=role-tester-ansible
-BRANCH=master
-PWD="`pwd`"
-ROLENAME="${PWD##*/}"
+#
+# Small script to test an ansible role with test-kitchen
+#
+# Usage (in the root directory of your ansible role, the one that
+# contains meta/ and tasks/)
+#
+# wget -O- bit.ly/ansibletest | sh
+if [ -z "$PROJECT" ]; then
+  PROJECT=role-tester-ansible
+fi
+
+# Which version of role-tester-ansible to use, allow overriding with
+# environment variable
+if [ -z "$BRANCH" ]; then
+  BRANCH=master
+fi
+
+# The role under test -- allow setting from environment variable
+if [ -z "$ROLENAME" ]; then
+  PWD="`pwd`"
+  ROLENAME="${PWD##*/}"
+fi
 
 download()
 {
