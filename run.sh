@@ -70,6 +70,9 @@ export ROLE_UNDER_TEST
 # Inlined from _functions.sh
 ROLE_DIR="."
 ROLE_TESTER_DIR="$PROJECT"-"$BRANCH"
+
+make -s -C "$PROJECT"-"$BRANCH" rewrite
+
 if [ -d "$ROLE_DIR"/test/integration/default/serverspec ]; then
    (cd $ROLE_TESTER_DIR; bundle exec kitchen diagnose |
       grep '^[ ]*suite_name: ' | cut -d: -f2 | cut -c2- | uniq) |

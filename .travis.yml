@@ -3,7 +3,9 @@ rvm:
   - 2.2
   - 2.1
   - 2.0
-  - 1.9.3
+# Not supported by net-ssh >= 3, which in turn is required by
+# kitchen-verifier-serverspec
+#  - 1.9.3
 
 sudo: required
 

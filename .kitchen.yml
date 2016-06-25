@@ -1,7 +1,8 @@
 driver:
   name: docker
-  use_sudo: <% if ENV["TRAVIS"] then true else false end %>
+  chef_bootstrap_url: nil
   use_cache: true
+  use_sudo: <% if ENV["TRAVIS"] then true else false end %>
   #kitchen-docker can't parse docker 1.12 build -q output
   #https://github.com/test-kitchen/kitchen-docker/issues/225
   #build_options: "-q"
@@ -32,8 +33,12 @@ provisioner:
 # Will be filled out in .kitchen.local.yml
 suites: []
 
-#verifier:
-# TODO
-#  name: serverspec
-#  additional_install_command: mkdir -p /tmp/kitchen
-#  name: shell
+verifier:
+  name: serverspec
+  additional_install_command: mkdir -p /tmp/kitchen
+  # Avoid "sudo: gem: command not found"
+  sudo_command: "sudo -E"
+  # test_serverspec_installed: false
+  default_pattern: true
+  # false to run serverspec on local machine, true to run remotely
+  remote_exec: true

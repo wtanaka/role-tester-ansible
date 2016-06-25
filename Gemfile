@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 group :development do
-  gem 'net-ssh', '2.9.4'
   gem 'kitchen-ansiblepush', '!= 0.5.2'
   # kitchen-docker 2.5.0 is broken, see
   # https://github.com/ahelal/kitchen-ansiblepush/issues/31
@@ -10,9 +9,11 @@ group :development do
   # including kitchen-sync with sftp does not actually help -- builds
   # were around 31--34 minutes on travis CI with and without SFTP
   # gem 'kitchen-sync', '2.1.0'
-  #gem 'kitchen-verifier-serverspec',
-  #  :ref => 'ef120567c8ade49c373bd4ac7e4a755408109104'
+  # Blacklist 0.6.2 due to
+  # https://github.com/neillturner/kitchen-verifier-serverspec/pull/20
+  gem 'kitchen-verifier-serverspec', '!= 0.5.2', '!= 0.6.2'
   #gem 'kitchen-verifier-shell'
+  gem 'net-ssh'
   #gem 'serverspec'
   gem 'test-kitchen'
   gem 'thor', '!= 0.19.2'
