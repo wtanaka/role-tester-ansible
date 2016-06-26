@@ -7,6 +7,10 @@
 # contains meta/ and tasks/)
 #
 # wget -O- bit.ly/ansibletest | sh
+#
+# To pin to a specific commit of role-tester-ansible
+#
+# wget -O- bit.ly/ansibletest | env BRANCH=fullshahashgoeshere sh
 if [ -z "$PROJECT" ]; then
   PROJECT=role-tester-ansible
 fi
