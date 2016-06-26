@@ -15,10 +15,10 @@ before_install:
   - sudo apt-get install -y ansible
 
 script:
-  - (cd fake-role; wget -O- bit.ly/ansibletest | env BRANCH=dev sh)
+  - ./test-local.sh
 
 after_failure:
-  - (cd fake-role; cat .kitchen/logs/*.log | grep -v '^I, ')
+  - (cd fake-role/role-tester; cat .kitchen/logs/*.log | grep -v '^I, ')
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

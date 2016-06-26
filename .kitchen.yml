@@ -34,21 +34,23 @@ suites:
 
   - name: ansible-system
 
-#  - name: ansible1.6.1
-#    provisioner:
-#      ansible_playbook_bin: ansible1.6.1/bin/ansible-playbook
-#
-#  - name: ansible1.7.2
-#    provisioner:
-#      ansible_playbook_bin: ansible1.7.2/bin/ansible-playbook
-#
-#  - name: ansible1.8.4
-#    provisioner:
-#      ansible_playbook_bin: ansible1.8.4/bin/ansible-playbook
-#
-#  - name: ansible1.9.4
-#    provisioner:
-#      ansible_playbook_bin: ansible1.9.4/bin/ansible-playbook
+  - name: ansible1.6.1
+    provisioner:
+      ansible_playbook_bin: ansible1.6.1/bin/ansible-playbook
+      raw_arguments: --module-path=ansible1.6.1/share/ansible
+
+  - name: ansible1.7.2
+    provisioner:
+      ansible_playbook_bin: ansible1.7.2/bin/ansible-playbook
+      raw_arguments: --module-path=ansible1.7.2/share/ansible
+
+  - name: ansible1.8.4
+    provisioner:
+      ansible_playbook_bin: ansible1.8.4/bin/ansible-playbook
+
+  - name: ansible1.9.4
+    provisioner:
+      ansible_playbook_bin: ansible1.9.4/bin/ansible-playbook
 
   - name: ansible2.0.0
     provisioner:
