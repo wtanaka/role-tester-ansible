@@ -1,0 +1,24 @@
+language: ruby
+rvm:
+  - 2.2
+  - 2.1
+  - 2.0
+  - 1.9.3
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y ansible
+
+script:
+  - (cd fake-role; wget -O- bit.ly/ansibletest | env BRANCH=dev sh)
+
+after_failure:
+  - (cd fake-role; cat .kitchen/logs/*.log | grep -v '^I, ')
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
