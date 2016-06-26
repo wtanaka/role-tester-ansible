@@ -1,4 +1,12 @@
 ---
 - hosts: all
+  gather_facts: False
+
+  tasks:
+  - name: install python 2 on ubuntu 16.04 et al
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+    sudo: yes
+
+- hosts: all
   roles:
   - "{{role_under_test}}"

@@ -49,10 +49,10 @@ suites:
 #  - name: ansible1.9.4
 #    provisioner:
 #      ansible_playbook_bin: ansible1.9.4/bin/ansible-playbook
-#
-#  - name: ansible2.0.0
-#    provisioner:
-#      ansible_playbook_bin: ansible2.0.0/bin/ansible-playbook
+
+  - name: ansible2.0.0
+    provisioner:
+      ansible_playbook_bin: ansible2.0.0/bin/ansible-playbook
 
 verifier:
 # TODO
