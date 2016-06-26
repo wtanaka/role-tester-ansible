@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/wtanaka/role-tester-ansible.svg?branch=master)](https://travis-ci.org/wtanaka/role-tester-ansible)
+
 Role Tester for Ansible Roles
 =============================
 
