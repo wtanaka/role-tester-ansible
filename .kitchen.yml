@@ -4,6 +4,11 @@ driver:
 
 platforms:
 
+  - name: ubuntu-precise-docker
+    driver_config:
+      use_cache: true
+      image: ubuntu:12.04
+
   - name: ubuntu-trusty-docker
     driver_config:
       use_cache: true
@@ -13,6 +18,11 @@ platforms:
     driver_config:
       use_cache: true
       image: ubuntu:15.10
+
+  - name: ubuntu-xenial-docker
+    driver_config:
+      use_cache: true
+      image: ubuntu:16.04
 
 # Non-deterministically, gets this error:
 # fatal: [ubuntu-xenial-docker] => failed to parse: bash: warning: setlocale:
