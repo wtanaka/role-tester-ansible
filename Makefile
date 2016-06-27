@@ -8,6 +8,7 @@ all: test
 
 clean:
 	find . -name "*~" -exec rm \{\} \;
+	rm -rf fake-role/role-tester
 
 ansible1.6.1:
 	test -d $@ || virtualenv $@

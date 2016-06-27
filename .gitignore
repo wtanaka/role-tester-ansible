@@ -1,5 +1,6 @@
 *~
 /.bundle/
+/fake-role/role-tester
 /Gemfile.lock
 /.kitchen/
 *.swp
