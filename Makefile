@@ -6,6 +6,9 @@ ANSIBLES=ansible1.6.1 \
 
 all: test
 
+clean:
+	find . -name "*~" -exec rm \{\} \;
+
 ansible1.6.1:
 	test -d $@ || virtualenv $@
 	# without --no-use-wheel, module command scripts end up in
