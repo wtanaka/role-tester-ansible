@@ -44,6 +44,16 @@ suites:
 
   - name: ansible-system
 
+  - name: ansible1.4.4
+    provisioner:
+      ansible_playbook_bin: ansible1.4.4/bin/ansible-playbook
+      raw_arguments: --module-path=ansible1.4.4/share/ansible
+
+  - name: ansible1.5.4
+    provisioner:
+      ansible_playbook_bin: ansible1.5.4/bin/ansible-playbook
+      raw_arguments: --module-path=ansible1.5.4/share/ansible
+
   - name: ansible1.6.1
     provisioner:
       ansible_playbook_bin: ansible1.6.1/bin/ansible-playbook
@@ -58,13 +68,17 @@ suites:
     provisioner:
       ansible_playbook_bin: ansible1.8.4/bin/ansible-playbook
 
-  - name: ansible1.9.4
+  - name: ansible1.9.2
     provisioner:
-      ansible_playbook_bin: ansible1.9.4/bin/ansible-playbook
+      ansible_playbook_bin: ansible1.9.2/bin/ansible-playbook
 
-  - name: ansible2.0.0
+  - name: ansible2.0.0.2
     provisioner:
-      ansible_playbook_bin: ansible2.0.0/bin/ansible-playbook
+      ansible_playbook_bin: ansible2.0.0.2/bin/ansible-playbook
+
+  - name: ansible2.1.0.0
+    provisioner:
+      ansible_playbook_bin: ansible2.1.0.0/bin/ansible-playbook
 
 verifier:
 # TODO

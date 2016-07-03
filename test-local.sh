@@ -9,11 +9,14 @@ run_pip_installs()
    mkdir -p fake-role/role-tester
    tar cvf - . | (cd fake-role/role-tester; tar xvf -)
    env ROLE_UNDER_TEST=fake-role make -C fake-role/role-tester virtualenvs
+   [ -x fake-role/role-tester/ansible1.4.4/bin/ansible-playbook ]
+   [ -x fake-role/role-tester/ansible1.5.4/bin/ansible-playbook ]
    [ -x fake-role/role-tester/ansible1.6.1/bin/ansible-playbook ]
    [ -x fake-role/role-tester/ansible1.7.2/bin/ansible-playbook ]
    [ -x fake-role/role-tester/ansible1.8.4/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible1.9.4/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible2.0.0/bin/ansible-playbook ]
+   [ -x fake-role/role-tester/ansible1.9.2/bin/ansible-playbook ]
+   [ -x fake-role/role-tester/ansible2.0.0.2/bin/ansible-playbook ]
+   [ -x fake-role/role-tester/ansible2.1.0.0/bin/ansible-playbook ]
 }
 
 run_kitchen()
