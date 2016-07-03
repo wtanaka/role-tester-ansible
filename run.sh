@@ -31,6 +31,12 @@ if [ -z "$ROLENAME" ]; then
   ROLENAME="${PWD##*/}"
 fi
 
+ANSIBLE_VERSION_ARG=
+# The role under test -- allow setting from environment variable
+if [ -n "$ANSIBLE_VERSIONS" ]; then
+  ANSIBLE_VERSION_ARG="ANSIBLE_VERSIONS='$ANSIBLE_VERSIONS'"
+fi
+
 download()
 {
   wget -O - "$@" || curl -L "$@" ||
@@ -57,4 +63,4 @@ URL=https://github.com/"$GITHUBUSER"/"$PROJECT"/archive/"$BRANCH".tar.gz
 
 download "$URL" | tar xvfz -
 
-env ROLE_UNDER_TEST="$ROLENAME" make -C "$PROJECT"-"$BRANCH"
+env ROLE_UNDER_TEST="$ROLENAME" make -C "$PROJECT"-"$BRANCH" $ANSIBLE_VERSION_ARG

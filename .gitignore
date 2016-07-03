@@ -3,5 +3,7 @@
 /fake-role/role-tester
 /Gemfile.lock
 /.kitchen/
+/.kitchen.local.yml
+/rewritevenv/
 *.swp
 /vendor/
