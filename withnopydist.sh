@@ -13,33 +13,6 @@
 #   overrides the user install in .pydistutils.cfg
 
 PYDISTUTILSCFG="$HOME/.pydistutils.cfg"
-PYDISTUTILSCFGBACKUP="$HOME/.pydistutils.cfg.backedup"
-
-restore_config()
-{
-  if [ -f "$PYDISTUTILSCFGBACKUP" ]; then
-     >&2 echo "Restoring $PYDISTUTILSCFG"
-     mv "$PYDISTUTILSCFGBACKUP" "$PYDISTUTILSCFG"
-  fi
-}
-
-install_trap()
-{
-   for signal in ABRT ALRM BUS FPE HUP \
-         ILL INT KILL PIPE QUIT SEGV TERM \
-         TSTP TTIN TTOU USR1 USR2 PROF \
-         SYS TRAP VTALRM XCPU XFSZ; do
-      trap "restore_config; trap $signal; kill -$signal"' $$' $signal
-   done
-}
-
-if [ -f "$PYDISTUTILSCFG" ]; then
-  >&2 echo WARNING -- "$PYDISTUTILSCFG" already exists
-  >&2 echo Moving to "$PYDISTUTILSCFGBACKUP" temporarily
-  install_trap
-  mv "$PYDISTUTILSCFG" "$PYDISTUTILSCFGBACKUP"
-fi
 
 "$@"
 
-restore_config
