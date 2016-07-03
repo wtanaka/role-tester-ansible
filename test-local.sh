@@ -26,7 +26,7 @@ run_pip_installs()
 {
    rm -rf fake-role/role-tester
    mkdir -p fake-role/role-tester
-   tar cvf - . | (cd fake-role/role-tester; tar xvf -)
+   tar cf - . | (cd fake-role/role-tester; tar xf -)
    env ROLE_UNDER_TEST=fake-role make -C fake-role/role-tester virtualenvs
    [ -x fake-role/role-tester/ansible1.4.4/bin/ansible-playbook ]
    [ -x fake-role/role-tester/ansible1.5.4/bin/ansible-playbook ]
