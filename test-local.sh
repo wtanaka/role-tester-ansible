@@ -1,8 +1,9 @@
-#!/bin/sh -ex
+#!/bin/sh -e
 # Copyright (C) 2016 Wesley Tanaka <http://wtanaka.com/>
 
 PYDISTUTILSCFG="$HOME/.pydistutils.cfg"
 PYDISTUTILSCFGBACKUP="$HOME/.pydistutils.cfg.backedup"
+ANSIBLE_VERSIONS="1.4.4 1.5.4 1.6.1 1.7.2 1.8.4 1.9.2 2.0.0.2 2.1.0.0"
 
 restore_config()
 {
@@ -28,14 +29,13 @@ run_pip_installs()
    mkdir -p fake-role/role-tester
    tar cf - . | (cd fake-role/role-tester; tar xf -)
    env ROLE_UNDER_TEST=fake-role make -C fake-role/role-tester virtualenvs
-   [ -x fake-role/role-tester/ansible1.4.4/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible1.5.4/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible1.6.1/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible1.7.2/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible1.8.4/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible1.9.2/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible2.0.0.2/bin/ansible-playbook ]
-   [ -x fake-role/role-tester/ansible2.1.0.0/bin/ansible-playbook ]
+   for ver in $ANSIBLE_VERSIONS; do
+      if [ ! -x fake-role/role-tester/ansible"$ver"/bin/ansible-playbook ]; then
+         >&2 echo "Missing ansible-playbook $ver"
+         restore_config
+         exit 1
+      fi
+   done
 }
 
 run_kitchen()
