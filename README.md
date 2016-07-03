@@ -6,7 +6,9 @@ Role Tester for Ansible Roles
 Requirements
 ------------
 
-wtanaka.bundler
+* Docker
+* bundler
+* ffi.h (brew install pkg-config libffi on Mac OS X)
 
 Usage
 -----
