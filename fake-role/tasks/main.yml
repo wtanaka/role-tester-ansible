@@ -2,3 +2,7 @@
 # tasks file for fake-role
 - name: fake task
   debug: msg="Task completed"
+
+- name: make file
+  lineinfile: >
+    create=yes dest=/tmp/fakerole.txt state=present line=fakerole
