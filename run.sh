@@ -66,4 +66,4 @@ URL=https://github.com/"$GITHUBUSER"/"$PROJECT"/archive/"$BRANCH".tar.gz
 
 download "$URL" | tar xvfz -
 
-env ROLE_UNDER_TEST="$ROLENAME" make -C "$PROJECT"-"$BRANCH" "$ANSIBLE_VERSION_ARG"
+env ROLE_UNDER_TEST="$ROLENAME" make -s -C "$PROJECT"-"$BRANCH" "$ANSIBLE_VERSION_ARG"

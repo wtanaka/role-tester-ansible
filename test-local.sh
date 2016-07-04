@@ -36,7 +36,7 @@ run_pip_installs()
 
 run_kitchen()
 {
-   env ROLE_UNDER_TEST=fake-role make -C fake-role/role-tester
+   env ROLE_UNDER_TEST=fake-role make -s -C fake-role/role-tester
 }
 
 if [ -f "$PYDISTUTILSCFG" ]; then
