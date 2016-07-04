@@ -11,6 +11,10 @@
 # To pin to a specific commit of role-tester-ansible
 #
 # wget -O- bit.ly/ansibletest | env BRANCH=fullshahashgoeshere sh
+if [ -z "$GITHUBUSER" ]; then
+  GITHUBUSER=wtanaka
+fi
+
 if [ -z "$PROJECT" ]; then
   PROJECT=role-tester-ansible
 fi
@@ -49,7 +53,7 @@ while getopts b:hr: opt; do
   esac
 done
 
-URL=https://github.com/wtanaka/"$PROJECT"/archive/"$BRANCH".tar.gz
+URL=https://github.com/"$GITHUBUSER"/"$PROJECT"/archive/"$BRANCH".tar.gz
 
 download "$URL" | tar xvfz -
 
