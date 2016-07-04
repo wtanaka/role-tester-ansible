@@ -11,6 +11,13 @@
 # To pin to a specific commit of role-tester-ansible
 #
 # wget -O- bit.ly/ansibletest | env BRANCH=fullshahashgoeshere sh
+download()
+{
+  wget -O - "$@" || curl -L "$@" ||
+  python3 -c "import sys; from urllib.request import urlopen as u
+sys.stdout.buffer.write(u('""$@""').read())"
+}
+
 if [ -z "$GITHUBUSER" ]; then
   GITHUBUSER=wtanaka
 fi
@@ -31,21 +38,11 @@ if [ -z "$ROLENAME" ]; then
   ROLENAME="${PWD##*/}"
 fi
 
-ANSIBLE_VERSION_ARG=
-# The role under test -- allow setting from environment variable
-if [ -n "$ANSIBLE_VERSIONS" ]; then
-  ANSIBLE_VERSION_ARG="ANSIBLE_VERSIONS='$ANSIBLE_VERSIONS'"
-fi
-
-download()
-{
-  wget -O - "$@" || curl -L "$@" ||
-  python3 -c "import sys; from urllib.request import urlopen as u
-sys.stdout.buffer.write(u('""$@""').read())"
-}
-
-while getopts b:hr: opt; do
+while getopts ab:hr: opt; do
   case "$opt" in
+    a)
+      ANSIBLE_VERSIONS="$OPTARG"
+      ;;
     b)
       BRANCH="$OPTARG"
       ;;
@@ -59,8 +56,14 @@ while getopts b:hr: opt; do
   esac
 done
 
+ANSIBLE_VERSION_ARG=
+# The role under test -- allow setting from environment variable
+if [ -n "$ANSIBLE_VERSIONS" ]; then
+  ANSIBLE_VERSION_ARG='ANSIBLE_VERSIONS='"$ANSIBLE_VERSIONS"
+fi
+
 URL=https://github.com/"$GITHUBUSER"/"$PROJECT"/archive/"$BRANCH".tar.gz
 
 download "$URL" | tar xvfz -
 
-env ROLE_UNDER_TEST="$ROLENAME" make -C "$PROJECT"-"$BRANCH" $ANSIBLE_VERSION_ARG
+env ROLE_UNDER_TEST="$ROLENAME" make -C "$PROJECT"-"$BRANCH" "$ANSIBLE_VERSION_ARG"

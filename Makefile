@@ -13,6 +13,11 @@ PIP_OPTS=-q --isolated
 
 all: test
 
+print:
+	# Use this to debug the values of the variables
+	echo ANSIBLE_VERSIONS is $(ANSIBLE_VERSIONS)
+	echo ANSIBLES is $(ANSIBLES)
+
 clean:
 	find . -name "*~" -exec rm \{\} \;
 	rm -rf fake-role/role-tester
