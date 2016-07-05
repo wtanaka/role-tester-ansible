@@ -27,10 +27,11 @@ def main():
     if version == 'system':
       pass
     else:
-      suite['ansible_playbook_bin'] = \
+      suite['provisioner'] = {}
+      suite['provisioner']['ansible_playbook_bin'] = \
           'ansible%s/bin/ansible-playbook' % version
       if version in old_ansible_versions:
-        suite['raw_arguments'] = \
+        suite['provisioner']['raw_arguments'] = \
             '--module-path=ansible%s/share/ansible' % version
     kitchen['suites'].append(suite)
 
