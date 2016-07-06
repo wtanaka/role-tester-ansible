@@ -38,13 +38,16 @@ if [ -z "$ROLENAME" ]; then
   ROLENAME="${PWD##*/}"
 fi
 
-while getopts ab:hr: opt; do
+while getopts a:b:ho:r: opt; do
   case "$opt" in
     a)
       ANSIBLE_VERSIONS="$OPTARG"
       ;;
     b)
       BRANCH="$OPTARG"
+      ;;
+    o)
+      DOCKER_IMAGES="$OPTARG"
       ;;
     r)
       ROLENAME="$OPTARG"
@@ -62,8 +65,14 @@ if [ -n "$ANSIBLE_VERSIONS" ]; then
   ANSIBLE_VERSION_ARG='ANSIBLE_VERSIONS='"$ANSIBLE_VERSIONS"
 fi
 
+DOCKER_IMAGES_ARG=
+# The role under test -- allow setting from environment variable
+if [ -n "$DOCKER_IMAGES" ]; then
+  DOCKER_IMAGES_ARG='DOCKER_IMAGES='"$DOCKER_IMAGES"
+fi
+
 URL=https://github.com/"$GITHUBUSER"/"$PROJECT"/archive/"$BRANCH".tar.gz
 
 download "$URL" | tar xvfz -
 
-env ROLE_UNDER_TEST="$ROLENAME" make -s -C "$PROJECT"-"$BRANCH" "$ANSIBLE_VERSION_ARG"
+env ROLE_UNDER_TEST="$ROLENAME" make -s -C "$PROJECT"-"$BRANCH" "$ANSIBLE_VERSION_ARG" "$DOCKER_IMAGES_ARG"

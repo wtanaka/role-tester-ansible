@@ -1,28 +1,10 @@
 driver:
   name: docker
   use_sudo: <% if ENV["TRAVIS"] then true else false end %>
+  use_cache: true
 
-platforms:
-
-  - name: ubuntu-precise-docker
-    driver_config:
-      use_cache: true
-      image: ubuntu:12.04
-
-  - name: ubuntu-trusty-docker
-    driver_config:
-      use_cache: true
-      image: ubuntu:14.04
-
-  - name: ubuntu-wily-docker
-    driver_config:
-      use_cache: true
-      image: ubuntu:15.10
-
-  - name: ubuntu-xenial-docker
-    driver_config:
-      use_cache: true
-      image: ubuntu:16.04
+# Will be filled out in .kitchen.local.yml
+platforms: []
 
 # Non-deterministically, gets this error:
 # fatal: [ubuntu-xenial-docker] => failed to parse: bash: warning: setlocale:
@@ -40,6 +22,7 @@ provisioner:
   extra_vars:
     role_under_test: <%= ENV["ROLE_UNDER_TEST"] %>
 
+# Will be filled out in .kitchen.local.yml
 suites: []
 
 verifier:

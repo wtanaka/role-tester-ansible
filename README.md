@@ -26,15 +26,22 @@ specify that with environment variables:
 wget -O- bit.ly/ansibletest | env GITHUBUSER=mygituser BRANCH=mybranch sh
 ```
 
-Test a different list of ansible versions than the default.  `system`
-indicates that you want to test with the `ansible-playbook` on your
-PATH (when you specify a version number, those are installed via
-`pip`)
+To test a different list of ansible versions than the default, use the
+`ANSIBLE_VERSIONS` environment variable.  `system` indicates that you
+want to test with the `ansible-playbook` on your PATH.  When you
+specify a version number, those are installed via `pip`
 
 ```
 wget -O- bit.ly/ansibletest | env ANSIBLE_VERSIONS="system 1.5.4 2.0.0.2" sh
 ```
 
+To test a different list of operating system images than the default,
+use the `DOCKER_IMAGES` environment variable.
+
+```
+wget -O- bit.ly/ansibletest |
+    env DOCKER_IMAGES="ubuntu:12.04 ubuntu:14.04 ubuntu:15.10 ubuntu:16.04" sh
+```
 
 License
 -------

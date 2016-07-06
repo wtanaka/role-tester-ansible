@@ -4,19 +4,17 @@
 """Rewrite .kitchen.yml with a specific list of ansible versions
 """
 
+import optparse
 import os.path
 import sys
 
 from atomicwrites import atomic_write
 import yaml
 
-def main():
-  ansible_versions = sys.argv[1:]
-  kitchen_filename = os.path.join(
-      os.path.dirname(__file__), '.kitchen.local.yml')
+def suites(ansible_versions):
+  kitchen = {}
   old_ansible_filename = os.path.join(os.path.dirname(__file__),
       'broken-wheel-versions.txt')
-  kitchen = {}
   with open(old_ansible_filename, 'rb') as fp:
     old_ansible_versions = fp.read().split()
 
@@ -34,7 +32,46 @@ def main():
         suite['provisioner']['raw_arguments'] = \
             '--module-path=ansible%s/share/ansible' % version
     kitchen['suites'].append(suite)
+  return kitchen
 
+
+def platforms(os_versions):
+  kitchen = {}
+  kitchen['platforms'] = []
+  for os_version in os_versions:
+    platform = {
+        'name': os_version.replace(':', '-'),
+        'driver_config': {
+            'image': os_version
+        }
+    }
+    kitchen['platforms'].append(platform)
+  return kitchen
+
+
+def main():
+  parser = optparse.OptionParser()
+  parser.add_option("-a", "--ansible-versions",
+      dest="ansible_versions",
+      help="space-separated list of ansible versions (e.g. 'system 1.5.4')")
+  parser.add_option("-o", "--os-versions",
+      dest="os_versions",
+      help="space-separated list of docker OS images"
+      " (e.g.'ubuntu:15.10 ubuntu:16.04')")
+  (options, args) = parser.parse_args()
+
+  if not options.ansible_versions or not options.os_versions:
+    parser.print_help()
+    sys.exit(2)
+
+  ansible_versions = options.ansible_versions.split()
+  os_versions = options.os_versions.split()
+  kitchen = {}
+  kitchen.update(suites(ansible_versions))
+  kitchen.update(platforms(os_versions))
+
+  kitchen_filename = os.path.join(
+      os.path.dirname(__file__), '.kitchen.local.yml')
   with atomic_write(kitchen_filename, overwrite=True) as fp:
     yaml.dump(kitchen, fp)
 
