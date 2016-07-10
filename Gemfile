@@ -10,6 +10,7 @@ group :development do
   # gem 'kitchen-sync', '2.1.0'
   #gem 'kitchen-verifier-serverspec',
   #  :ref => 'ef120567c8ade49c373bd4ac7e4a755408109104'
-  gem 'kitchen-verifier-shell'
+  #gem 'kitchen-verifier-shell'
+  #gem 'serverspec'
   gem 'test-kitchen'
 end

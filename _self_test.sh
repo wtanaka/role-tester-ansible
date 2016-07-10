@@ -9,6 +9,8 @@ PYDISTUTILSCFG="$HOME/.pydistutils.cfg"
 PYDISTUTILSCFGBACKUP="$HOME/.pydistutils.cfg.backedup"
 ANSIBLE_CANARY_VERSION="1.5.4"
 
+. "$DIRNAME"/_functions.sh
+
 restore_config()
 {
   if [ -f "$PYDISTUTILSCFGBACKUP" ]; then
@@ -39,6 +41,7 @@ run_pip_installs()
 
 run_kitchen()
 {
+   cp_serverspecs fake-role fake-role/role-tester
    env ROLE_UNDER_TEST=fake-role make -s -C fake-role/role-tester
 }
 

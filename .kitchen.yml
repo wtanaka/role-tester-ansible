@@ -26,8 +26,8 @@ provisioner:
 # Will be filled out in .kitchen.local.yml
 suites: []
 
-verifier:
+#verifier:
 # TODO
 #  name: serverspec
 #  additional_install_command: mkdir -p /tmp/kitchen
-  name: shell
+#  name: shell

@@ -67,4 +67,17 @@ download "$URL" | tar xvfz -
 ROLE_UNDER_TEST="$ROLENAME"
 export ROLE_UNDER_TEST
 
+# Inlined from _functions.sh
+ROLE_DIR="."
+ROLE_TESTER_DIR="$PROJECT"-"$BRANCH"
+if [ -d "$ROLE_DIR"/test/integration/default/serverspec ]; then
+   (cd $ROLE_TESTER_DIR; bundle exec kitchen diagnose |
+      grep '^[ ]*suite_name: ' | cut -d: -f2 | cut -c2- | uniq) |
+   while read LINE; do
+      mkdir -p "$ROLE_TESTER_DIR"/test/integration/"$LINE"
+      cp -a "$ROLE_DIR"/test/integration/default/serverspec \
+         "$ROLE_TESTER_DIR"/test/integration/"$LINE"
+   done
+fi
+
 make -s -C "$PROJECT"-"$BRANCH"
