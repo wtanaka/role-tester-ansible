@@ -6,7 +6,16 @@
 # Yakkety has 2.1.0.0
 ANSIBLE_VERSIONS ?= system 1.4.4 1.5.4 1.7.2 1.9.2 2.0.0.2 2.1.0.0
 ANSIBLES=$(patsubst %,ansible%, $(filter-out system,$(ANSIBLE_VERSIONS)))
-DOCKER_IMAGES ?= ubuntu:12.04 ubuntu:14.04 ubuntu:16.04
+DOCKER_IMAGES ?= \
+	centos:5 \
+	centos:7 \
+	debian:7 \
+	debian:8 \
+	fedora:20 \
+	fedora:24 \
+	ubuntu:12.04 \
+	ubuntu:16.04 \
+
 
 PIP_OPTS=-q --isolated
 
