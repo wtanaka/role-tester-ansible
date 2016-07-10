@@ -1,7 +1,8 @@
 #!/bin/sh
 # Copyright (C) 2016 Wesley Tanaka <http://wtanaka.com/>
 #
-# Small script to test an ansible role with test-kitchen
+# This bootstrap script downloads the Ansible Role Tester into your
+# role directory and executes it.
 #
 # Usage (in the root directory of your ansible role, the one that
 # contains meta/ and tasks/)
