@@ -15,7 +15,7 @@ before_install:
   - sudo apt-get install -y ansible
 
 script:
-  - ./test-local.sh
+  - ./_self_test.sh
 
 after_failure:
   - (cd fake-role/role-tester; cat .kitchen/logs/*.log | grep -v '^I, ')
