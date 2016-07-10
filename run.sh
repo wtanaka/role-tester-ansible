@@ -60,20 +60,11 @@ while getopts a:b:ho:r: opt; do
   esac
 done
 
-ANSIBLE_VERSION_ARG=
-# The role under test -- allow setting from environment variable
-if [ -n "$ANSIBLE_VERSIONS" ]; then
-  ANSIBLE_VERSION_ARG='ANSIBLE_VERSIONS='"$ANSIBLE_VERSIONS"
-fi
-
-DOCKER_IMAGES_ARG=
-# The role under test -- allow setting from environment variable
-if [ -n "$DOCKER_IMAGES" ]; then
-  DOCKER_IMAGES_ARG='DOCKER_IMAGES='"$DOCKER_IMAGES"
-fi
-
 URL=https://github.com/"$GITHUBUSER"/"$PROJECT"/archive/"$BRANCH".tar.gz
 
 download "$URL" | tar xvfz -
 
-env ROLE_UNDER_TEST="$ROLENAME" make -s -C "$PROJECT"-"$BRANCH" "$ANSIBLE_VERSION_ARG" "$DOCKER_IMAGES_ARG"
+ROLE_UNDER_TEST="$ROLENAME"
+export ROLE_UNDER_TEST
+
+make -s -C "$PROJECT"-"$BRANCH"
