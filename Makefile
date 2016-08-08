@@ -49,6 +49,8 @@ rewritevenv:
 	env VIRTUAL_ENV="$@" $@/bin/pip $(PIP_OPTS) install PyYAML
 	env VIRTUAL_ENV="$@" $@/bin/pip $(PIP_OPTS) install atomicwrites
 
+all-ansibles: $(ANSIBLES)
+
 ansible%:
 	# without ANSIBLE_LIBRARY, package tries to write to /usr/share
 	# without --no-use-wheel, module command scripts end up in
@@ -73,5 +75,5 @@ ansible%:
 vendor/bundle:
 	bundle install --path "$@"
 
-test: vendor/bundle rewrite $(ANSIBLES)
+test: vendor/bundle rewrite all-ansibles
 	bundle exec kitchen test all
