@@ -1,6 +1,16 @@
 #!/bin/sh
 # Copyright (C) 2016 Wesley Tanaka
 
+cp_role_tester()
+{
+   ORIG_DIR="$1"
+   TARGET_DIR="$2"
+
+   rm -rf "$TARGET_DIR"
+   mkdir -p "$TARGET_DIR"
+   tar c --exclude "fake-role*" -f - "$ORIG_DIR" | (cd "$TARGET_DIR"; tar xf -)
+}
+
 cp_serverspecs()
 {
    ROLE_DIR="$1"

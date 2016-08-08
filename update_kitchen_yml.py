@@ -72,6 +72,10 @@ def main():
 
   kitchen_filename = os.path.join(
       os.path.dirname(__file__), '.kitchen.local.yml')
+  # Work around issue in atomic_write where if
+  # os.path.dirname(__file__) == '' then we get OSError: [Errno 2] No
+  # such file or directory: ''
+  kitchen_filename = os.path.abspath(kitchen_filename)
   with atomic_write(kitchen_filename, overwrite=True) as fp:
     yaml.dump(kitchen, fp)
 

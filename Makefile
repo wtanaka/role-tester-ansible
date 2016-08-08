@@ -30,7 +30,14 @@ print:
 
 clean:
 	find . -name "*~" -exec rm \{\} \;
+	rm -rf .bundle
+	rm -rf fake-role-no-tests/role-tester
 	rm -rf fake-role/role-tester
+	rm -rf Gemfile.lock
+	rm -rf .kitchen
+	rm -rf .kitchen.local.yml
+	rm -rf rewritevenv
+	rm -rf vendor
 
 rewrite: rewritevenv
 	rewritevenv/bin/python update_kitchen_yml.py \

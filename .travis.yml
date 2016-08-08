@@ -19,6 +19,7 @@ script:
 
 after_failure:
   - (cd fake-role/role-tester; cat .kitchen/logs/*.log | grep -v '^I, ')
+  - (cd fake-role-no-tests/role-tester; cat .kitchen/logs/*.log | grep -v '^I, ')
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

@@ -31,9 +31,7 @@ install_trap()
 
 run_pip_installs()
 {
-   rm -rf fake-role/role-tester
-   mkdir -p fake-role/role-tester
-   tar cf - . | (cd fake-role/role-tester; tar xf -)
+   cp_role_tester . fake-role/role-tester
    for ver in $ANSIBLE_CANARY_VERSION; do
       make -s -C fake-role/role-tester "ansible$ver"
    done
@@ -41,7 +39,12 @@ run_pip_installs()
 
 run_kitchen()
 {
+   cp_role_tester . fake-role-no-tests/role-tester
    cp_serverspecs fake-role fake-role/role-tester
+   env ROLE_UNDER_TEST=fake-role-no-tests \
+      make -s -C fake-role-no-tests/role-tester \
+         ANSIBLE_VERSIONS=system \
+         DOCKER_IMAGES=ubuntu:12.04
    env ROLE_UNDER_TEST=fake-role make -s -C fake-role/role-tester
 }
 
@@ -57,6 +60,9 @@ cat > "$PYDISTUTILSCFG" <<EOF
 [install]
 user=1
 EOF
+
+make clean
+
 run_pip_installs
 
 >&2 echo "Running kitchen test"
