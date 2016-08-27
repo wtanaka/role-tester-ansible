@@ -10,7 +10,13 @@ Requirements
 
 * Docker
 * bundler
-* ffi.h (brew install pkg-config libffi on Mac OS X)
+* Python.h
+  * Ubuntu: sudo apt-get install python-dev
+* ffi.h
+  * Ubuntu: sudo apt-get install libffi-dev
+  * Mac OSX Homebrew: brew install pkg-config libffi
+* openssl/opensslv.h
+  * Ubuntu: sudo apt-get install libssl-dev
 
 Usage
 -----
