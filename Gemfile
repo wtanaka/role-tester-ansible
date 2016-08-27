@@ -12,5 +12,7 @@ group :development do
   #  :ref => 'ef120567c8ade49c373bd4ac7e4a755408109104'
   #gem 'kitchen-verifier-shell'
   #gem 'serverspec'
-  gem 'test-kitchen'
+  # Pin test-kitchen at 1.10.2 due to
+  # https://github.com/ahelal/kitchen-ansiblepush/issues/31
+  gem 'test-kitchen', '1.10.2'
 end
