@@ -2,7 +2,9 @@ driver:
   name: docker
   use_sudo: <% if ENV["TRAVIS"] then true else false end %>
   use_cache: true
-  build_options: "-q"
+  #kitchen-docker can't parse docker 1.12 build -q output
+  #https://github.com/test-kitchen/kitchen-docker/issues/225
+  #build_options: "-q"
 
 # Will be filled out in .kitchen.local.yml
 platforms: []
