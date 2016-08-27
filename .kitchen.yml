@@ -20,8 +20,9 @@ platforms: []
 provisioner:
   name: ansible_push
   idempotency_test: true
-  support_older_version: true
   playbook: kitchen-playbook.yml
+  support_older_version: true
+  verbose: <%= ENV["ANSIBLE_VERBOSE"] %>
   extra_vars:
     role_under_test: <%= ENV["ROLE_UNDER_TEST"] %>
 

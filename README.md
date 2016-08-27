@@ -51,6 +51,13 @@ wget -O- bit.ly/ansibletest |
     env DOCKER_IMAGES="ubuntu:12.04 ubuntu:14.04 ubuntu:15.10 ubuntu:16.04" sh
 ```
 
+To increase ansible-playbook verbose setting, use ANSIBLE_VERBOSE
+
+```
+wget -O- bit.ly/ansibletest |
+    env ANSIBLE_VERBOSE="vvv" sh
+```
+
 License
 -------
 
