@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/wtanaka/role-tester-ansible.svg?branch=master)](https://travis-ci.org/wtanaka/role-tester-ansible)
 [![CircleCI](https://circleci.com/gh/wtanaka/role-tester-ansible.svg?style=svg)](https://circleci.com/gh/wtanaka/role-tester-ansible)
+[![Build Status](https://semaphoreci.com/api/v1/wtanaka/role-tester-ansible/branches/master/shields_badge.svg)](https://semaphoreci.com/wtanaka/role-tester-ansible)
 
 Role Tester for Ansible Roles
 =============================
