@@ -17,9 +17,15 @@ DOCKER_IMAGES ?= \
 	fedora:24 \
 	ubuntu:12.04 \
 	ubuntu:16.04 \
+# "v" for verbose, empty string for non-verbose.  Make defaults to
+# empty string
+# PIP_VERBOSE ?=
 
-
-PIP_OPTS=-q --isolated
+ifeq ($(PIP_VERBOSE),)
+  PIP_OPTS=-q --isolated
+else
+  PIP_OPTS=--isolated
+endif
 
 .PHONY: ansiblesystem
 
