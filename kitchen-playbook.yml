@@ -24,4 +24,5 @@
 
 - hosts: all
   roles:
-  - "{{role_under_test}}"
+  - role: "{{role_under_test}}"
+    is_integration_test: True
