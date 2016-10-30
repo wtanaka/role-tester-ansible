@@ -1,10 +1,12 @@
+# Use "system" for the built-in ansible, or specify explicit version
+# numbers to install via pip
 # Precise has 1.4.4
 # Trusty has 1.5.4 and 1.7.2
 # Vivid has 1.7.2
 # Wily has 1.9.2
 # Xenial has 2.0.0.2
 # Yakkety has 2.1.0.0
-ANSIBLE_VERSIONS ?= system 1.4.4 1.5.4 1.7.2 1.9.2 2.0.0.2 2.1.0.0
+ANSIBLE_VERSIONS ?= 1.4.4 1.5.4 1.7.2 1.9.2 2.0.0.2 2.1.0.0
 ANSIBLES=$(patsubst %,ansible%, $(filter-out system,$(ANSIBLE_VERSIONS)))
 DOCKER_IMAGES ?= \
 	centos:5 \
