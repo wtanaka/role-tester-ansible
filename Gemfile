@@ -15,4 +15,6 @@ group :development do
   # Pin test-kitchen at 1.10.2 due to
   # https://github.com/ahelal/kitchen-ansiblepush/issues/31
   gem 'test-kitchen', '1.10.2'
+  # Work around Thor bug in 0.19.2
+  gem 'thor', '0.19.1'
 end
