@@ -27,6 +27,11 @@ else
   PIP_OPTS=--isolated
 endif
 
+# Default kitchen log level is "info" if no "-l" flag were passed per
+# https://docs.chef.io/ctl_kitchen.html -- we clone it here to allow
+# overriding this with an environment variable or make parameter
+KITCHEN_LOG_LEVEL ?= info
+
 .PHONY: ansiblesystem
 
 all: test
@@ -84,4 +89,4 @@ vendor/bundle:
 	bundle install --path "$@"
 
 test: vendor/bundle rewrite all-ansibles
-	bundle exec kitchen test all -l debug
+	bundle exec kitchen test all -l $(KITCHEN_LOG_LEVEL)
