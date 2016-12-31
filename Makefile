@@ -84,4 +84,4 @@ vendor/bundle:
 	bundle install --path "$@"
 
 test: vendor/bundle rewrite all-ansibles
-	bundle exec kitchen test all
+	bundle exec kitchen test all -l debug
