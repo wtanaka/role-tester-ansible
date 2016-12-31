@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 group :development do
   gem 'net-ssh', '2.9.4'
-  gem 'kitchen-ansiblepush', '0.5.1'
+  gem 'kitchen-ansiblepush', '!= 0.5.2'
   gem 'kitchen-docker'
   # 2.1.1 silently requires more recent Ruby than 1.9.3.  However,
   # including kitchen-sync with sftp does not actually help -- builds
