@@ -24,6 +24,9 @@ provisioner:
   support_older_version: true
   verbose: <%= ENV["ANSIBLE_VERBOSE"] %>
   extra_vars:
+    # We will override this in .kitchen.local.yml so that we can
+    # manually run kitchen commands later without having to set this
+    # environment variable
     role_under_test: <%= ENV["ROLE_UNDER_TEST"] %>
 
 # Will be filled out in .kitchen.local.yml

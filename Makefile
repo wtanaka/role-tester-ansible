@@ -56,6 +56,7 @@ clean:
 rewrite: rewritevenv
 	rewritevenv/bin/python update_kitchen_yml.py \
 		-a "$(ANSIBLE_VERSIONS)" \
+		-r "$(ROLE_UNDER_TEST)" \
 		-o "$(DOCKER_IMAGES)"
 
 rewritevenv:
