@@ -14,7 +14,7 @@ group :development do
   #gem 'kitchen-verifier-serverspec', '!= 0.5.2', '!= 0.6.2'
   gem 'kitchen-verifier-serverspec',
     :git => 'https://github.com/wtanaka/kitchen-verifier-serverspec.git',
-    :ref => '6246275109f296feabb9d389fc4dacd87e4208ca'
+    :ref => '9474ede292c21c91222e142207c0db81f044bd83'
   #gem 'kitchen-verifier-shell'
   gem 'net-ssh'
   #gem 'serverspec'
