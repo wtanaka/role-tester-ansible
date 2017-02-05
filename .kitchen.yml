@@ -36,6 +36,7 @@ suites: []
 verifier:
   name: serverspec
   additional_install_command: mkdir -p /tmp/kitchen
+  sudo: false
   # Avoid "sudo: gem: command not found"
   sudo_command: "sudo -E"
   # test_serverspec_installed: false
