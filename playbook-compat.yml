@@ -11,6 +11,9 @@
         test -e /usr/bin/python ||
         (command -v apt && apt -y update && apt install -y python-minimal)
       fi;
+    # Needed since Ansible 2.2 per
+    # https://github.com/ansible/ansible/pull/17112/files
+    changed_when: False
 
   - name: install simplejson on CentOS 5 et al
     sudo: yes
@@ -21,4 +24,7 @@
         python -c "import simplejson" ||
         (command -v yum && yum -y install python-simplejson)
       fi;
+    # Needed since Ansible 2.2 per
+    # https://github.com/ansible/ansible/pull/17112/files
+    changed_when: False
 

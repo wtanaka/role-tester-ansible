@@ -7,7 +7,7 @@
 # Wily has 1.9.2
 # Xenial has 2.0.0.2
 # Yakkety has 2.1.0.0
-ANSIBLE_VERSIONS ?= 1.4 1.4.4 1.5.4 1.7.2 1.9.2 2.0.0.2 2.1.0.0
+ANSIBLE_VERSIONS ?= 1.4 1.4.4 1.5.4 1.7.2 1.9.2 2.0.0.2 2.1.0.0 2.2.1.0
 ANSIBLES=$(patsubst %,ansible%, $(filter-out system,$(ANSIBLE_VERSIONS)))
 DOCKER_IMAGES ?= \
 	centos:5 \
