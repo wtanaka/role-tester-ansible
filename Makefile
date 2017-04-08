@@ -17,7 +17,7 @@ DOCKER_IMAGES ?= \
 	debian:7 \
 	debian:8 \
 	fedora:20 \
-	fedora:24 \
+	fedora:25 \
 	ubuntu:12.04 \
 	ubuntu:16.04 \
 # "v" for verbose, empty string for non-verbose.  Make defaults to

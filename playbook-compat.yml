@@ -15,6 +15,18 @@
     # https://github.com/ansible/ansible/pull/17112/files
     changed_when: False
 
+  - name: install python 2 on fedora 25 et al
+    sudo: yes
+    # Needs trailing ";" under certain combinations of docker, ansible
+    raw: >
+      if command -v dnf; then
+        test -e /usr/bin/python ||
+        (command -v dnf && dnf install -y python2)
+      fi;
+    # Needed since Ansible 2.2 per
+    # https://github.com/ansible/ansible/pull/17112/files
+    changed_when: False
+
   - name: install simplejson on CentOS 5 et al
     sudo: yes
     # Needs trailing ";" under certain combinations of docker, ansible
