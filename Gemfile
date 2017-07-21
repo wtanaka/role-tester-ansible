@@ -16,4 +16,6 @@ group :development do
   #gem 'serverspec'
   gem 'test-kitchen'
   gem 'thor', '!= 0.19.2'
+  # mixlib-shellout >= 2.3.0 requires Ruby version >= 2.2.
+  gem 'mixlib-shellout', '< 2.3.0'
 end
