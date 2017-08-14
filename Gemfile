@@ -14,7 +14,7 @@ group :development do
   #  :ref => 'ef120567c8ade49c373bd4ac7e4a755408109104'
   #gem 'kitchen-verifier-shell'
   #gem 'serverspec'
-  gem 'test-kitchen'
+  gem 'test-kitchen', '<= 1.16.0'
   gem 'thor', '!= 0.19.2'
   # mixlib-shellout >= 2.3.0 requires Ruby version >= 2.2.
   gem 'mixlib-shellout', '< 2.3.0'
