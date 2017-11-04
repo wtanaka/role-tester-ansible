@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh -ex
 # Copyright (C) 2016 Wesley Tanaka <http://wtanaka.com/>
 #
 # This script is a self-test for role-tester-ansible, used in the

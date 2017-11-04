@@ -76,6 +76,9 @@ rewrite: rewritevenv
 rewritevenv:
 	.bootci/python.sh -m virtualenv "$@"
 	(. "$@"/bin/activate; \
+		"$@"/bin/python -m pip --version; \
+		"$@"/bin/python -m pip install --upgrade pip; \
+		"$@"/bin/python -m pip --version; \
 		"$@"/bin/python -m pip $(PIP_OPTS) install PyYAML; \
 		"$@"/bin/python -m pip $(PIP_OPTS) install atomicwrites; \
 	)

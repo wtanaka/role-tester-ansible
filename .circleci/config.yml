@@ -1,0 +1,25 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: sudo apt-get update -qq
+      - run: sudo apt-get install -y wget make ruby-bundler python-virtualenv
+      # Needed to upgrade requests[security] on Ubuntu 14.04
+      - run: sudo apt-get install -y python-dev libffi-dev libssl-dev
+      # Used by _self_test.sh
+      - run: sudo apt-get install -y ansible
+      # Not needed for machine executor
+      #- setup_remote_docker
+      - run: sudo apt-get install -y docker.io
+      # Run test
+      - run: ./_self_test.sh
+      - run:
+          name: cat fake-role-no-tests .kitchen/logs/kitchen.log
+          command: cat fake-role-no-tests/role-tester/.kitchen/logs/kitchen.log
+          when: on_fail
