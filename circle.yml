@@ -14,12 +14,12 @@ dependencies:
    cache_directories:
       # This does not work right now because the cache is saved prior
       # to the test script being run.
-      - fake-role/role-tester/ansible1.4.4
-      - fake-role/role-tester/ansible1.5.4
-      - fake-role/role-tester/ansible1.7.2
-      - fake-role/role-tester/ansible1.9.2
-      - fake-role/role-tester/ansible2.0.0.2
-      - fake-role/role-tester/ansible2.1.0.0
+      - fake-role/role-tester/.bootci/venv-ansible1.4.4
+      - fake-role/role-tester/.bootci/venv-ansible1.5.4
+      - fake-role/role-tester/.bootci/venv-ansible1.7.2
+      - fake-role/role-tester/.bootci/venv-ansible1.9.2
+      - fake-role/role-tester/.bootci/venv-ansible2.0.0.2
+      - fake-role/role-tester/.bootci/venv-ansible2.1.0.0
       - fake-role/role-tester/rewritevenv
 
 test:

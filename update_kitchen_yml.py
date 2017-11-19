@@ -28,10 +28,10 @@ def suites(ansible_versions):
     else:
       suite['provisioner'] = {}
       suite['provisioner']['ansible_playbook_bin'] = \
-          'ansible%s/bin/ansible-playbook' % version
+          '.bootci/venv-ansible%s/bin/ansible-playbook' % version
       if version in old_ansible_versions:
         suite['provisioner']['raw_arguments'] = \
-            '--module-path=ansible%s/share/ansible' % version
+            '--module-path=.bootci/venv-ansible%s/share/ansible' % version
     kitchen['suites'].append(suite)
   return kitchen
 
