@@ -61,10 +61,12 @@ rewrite: rewritevenv
 		-r "$(ROLE_UNDER_TEST)" \
 		-o "$(DOCKER_IMAGES)"
 
-rewritevenv:
-	virtualenv "$@"
-	env VIRTUAL_ENV="$@" $@/bin/pip $(PIP_OPTS) install PyYAML
-	env VIRTUAL_ENV="$@" $@/bin/pip $(PIP_OPTS) install atomicwrites
+rewritevenv: .bootci/python.sh
+	$(PYTHON) -m virtualenv "$@"
+	(. "$@"/bin/activate; \
+		"$@"/bin/python -m pip $(PIP_OPTS) install PyYAML; \
+		"$@"/bin/python -m pip $(PIP_OPTS) install atomicwrites; \
+	)
 
 all-ansibles: $(ANSIBLES)
 
