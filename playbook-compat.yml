@@ -14,6 +14,8 @@
     # Needed since Ansible 2.2 per
     # https://github.com/ansible/ansible/pull/17112/files
     changed_when: False
+    register: result_python2_ubuntu
+    until: result_python2_ubuntu|success
 
   - name: install python 2 on fedora 25 et al
     sudo: yes
@@ -26,6 +28,8 @@
     # Needed since Ansible 2.2 per
     # https://github.com/ansible/ansible/pull/17112/files
     changed_when: False
+    register: result_python2_fedora
+    until: result_python2_fedora|success
 
   - name: install simplejson on CentOS 5 et al
     sudo: yes
@@ -39,4 +43,5 @@
     # Needed since Ansible 2.2 per
     # https://github.com/ansible/ansible/pull/17112/files
     changed_when: False
-
+    register: result_simplejson_centos
+    until: result_simplejson_centos|success
