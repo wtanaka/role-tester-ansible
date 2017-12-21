@@ -36,15 +36,19 @@ def suites(ansible_versions):
   return kitchen
 
 
+def driver_config(os_version):
+  yield ('image', os_version)
+  if os_version.startswith("ubuntu:"):
+    yield ('run_command', '/sbin/init')
+
+
 def platforms(os_versions):
   kitchen = {}
   kitchen['platforms'] = []
   for os_version in os_versions:
     platform = {
         'name': os_version.replace(':', '-'),
-        'driver_config': {
-            'image': os_version
-        }
+        'driver_config': dict((k, v) for k, v in driver_config(os_version)),
     }
     kitchen['platforms'].append(platform)
   return kitchen
