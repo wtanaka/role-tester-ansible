@@ -33,4 +33,8 @@
 
 - name: make file
   lineinfile: >
-    create=yes dest=/tmp/fakerole.txt state=present line=fakerole
+    create=yes
+    dest=/tmp/fakerole.txt
+    state=present
+    line=fakerole
+    regexp='^fakerole$'

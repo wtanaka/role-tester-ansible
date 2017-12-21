@@ -50,17 +50,6 @@ def platforms(os_versions):
   return kitchen
 
 
-def provisioner(role_under_test):
-  kitchen = {
-    'provisioner': {
-      'extra_vars': {
-        'role_under_test': role_under_test,
-      }
-    }
-  }
-  return kitchen
-
-
 def get_role_under_test(role_under_test):
   if role_under_test:
     return role_under_test
@@ -102,7 +91,6 @@ def main():
   kitchen = {}
   kitchen.update(suites(ansible_versions))
   kitchen.update(platforms(os_versions))
-  kitchen.update(provisioner(role_under_test))
 
   kitchen_filename = os.path.join(
       os.path.dirname(__file__), '.kitchen.local.yml')

@@ -73,6 +73,10 @@ rewrite: rewritevenv
 		-r "$(ROLE_UNDER_TEST)" \
 		-o "$(DOCKER_IMAGES)"
 
+roles/$(ROLE_UNDER_TEST):
+	mkdir -p roles
+	ln -s ../.. "$@"
+
 rewritevenv:
 	.bootci/python.sh -m virtualenv "$@"
 	(. "$@"/bin/activate; \
@@ -88,5 +92,10 @@ all-ansibles: $(ANSIBLES)
 vendor/bundle:
 	bundle install --path "$@"
 
-test: vendor/bundle rewrite all-ansibles
+kitchen-playbook.yml: rewritevenv
+	rewritevenv/bin/python write_kitchen_playbook.py \
+		-r "$(ROLE_UNDER_TEST)"
+
+test: vendor/bundle rewrite roles/$(ROLE_UNDER_TEST) all-ansibles \
+		kitchen-playbook.yml
 	bundle exec kitchen test all -l $(KITCHEN_LOG_LEVEL)

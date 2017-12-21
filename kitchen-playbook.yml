@@ -1,6 +1,0 @@
----
-- include: playbook-compat.yml
-- hosts: all
-  roles:
-  - role: "{{role_under_test}}"
-    is_integration_test: True

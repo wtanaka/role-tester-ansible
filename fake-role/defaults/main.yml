@@ -1,2 +1,4 @@
 ---
 # defaults file for fake-role
+# Ansible 1.3 crashes without this
+workaround_ansible_issue_4129: True
