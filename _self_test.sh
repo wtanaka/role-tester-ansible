@@ -33,7 +33,7 @@ run_pip_installs()
 {
    cp_role_tester . fake-role/role-tester
    for ver in $ANSIBLE_CANARY_VERSION; do
-      make -s -C fake-role/role-tester ".bootci/venv-ansible$ver"
+      fake-role/role-tester/.bootci/make-ansible.sh "$ver"
    done
 }
 

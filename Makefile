@@ -61,12 +61,15 @@ rewrite: rewritevenv
 		-r "$(ROLE_UNDER_TEST)" \
 		-o "$(DOCKER_IMAGES)"
 
-rewritevenv: .bootci/python.sh
-	$(PYTHON) -m virtualenv "$@"
+rewritevenv:
+	.bootci/python.sh -m virtualenv "$@"
 	(. "$@"/bin/activate; \
 		"$@"/bin/python -m pip $(PIP_OPTS) install PyYAML; \
 		"$@"/bin/python -m pip $(PIP_OPTS) install atomicwrites; \
 	)
+
+.bootci/venv-ansible%:
+	.bootci/make-ansible.sh "$*"
 
 all-ansibles: $(ANSIBLES)
 
@@ -75,5 +78,3 @@ vendor/bundle:
 
 test: vendor/bundle rewrite all-ansibles
 	bundle exec kitchen test all -l $(KITCHEN_LOG_LEVEL)
-
-sinclude .bootci/ansible.mk

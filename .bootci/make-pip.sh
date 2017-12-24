@@ -16,16 +16,18 @@
 # You should have received a copy of the GNU General Public License
 # along with github.com/wtanaka/bootci.  If not, see
 # <http://www.gnu.org/licenses/>.
-.bootci/download.sh: .bootci/shell.mk .bootci
-	echo '#!/bin/sh' > "$@"
-	echo 'wget -O - "$$@" ||' >> "$@"
-	echo 'curl -L "$$@" ||' >> "$@"
-	echo 'perl -MLWP::Simple -e "getprint '"'"'$$@'"'"'" ||' >> "$@"
-	echo 'python -c "import sys; from urllib import urlopen as u' >> "$@"
-	echo 'sys.stdout.write(u('"'"'""$$@""'"'"').read())" ||' >> "$@"
-	echo 'python3 -c "import sys; from urllib.request import urlopen as u' >> "$@"
-	echo 'sys.stdout.buffer.write(u('"'"'""$$@""'"'"').read())"' >> "$@"
-	chmod +x "$@"
 
-.bootci:
-	mkdir "$@"
+set -e
+
+DIRNAME="`dirname $0`"
+
+# PYTHONHTTPSVERIFY=0 to work around Ubuntu 16.04.1
+# [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed
+if ! "$DIRNAME"/python.sh -m pip --version; then
+  (
+    cd "$DIRNAME"
+    env PYTHONHTTPSVERIFY=0 \
+      ./download.sh https://bootstrap.pypa.io/get-pip.py > get-pip.py
+    ./python.sh get-pip.py --user
+  )
+fi

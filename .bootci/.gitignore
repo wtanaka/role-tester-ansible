@@ -1,3 +1,2 @@
-/download.sh
-/python.sh
+/ansible-playbook*.sh
 /venv-ansible*/

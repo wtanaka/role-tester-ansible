@@ -28,7 +28,7 @@ def suites(ansible_versions):
     else:
       suite['provisioner'] = {}
       suite['provisioner']['ansible_playbook_bin'] = \
-          '.bootci/venv-ansible%s/bin/ansible-playbook' % version
+          '.bootci/ansible-playbook%s.sh' % version
       if version in old_ansible_versions:
         suite['provisioner']['raw_arguments'] = \
             '--module-path=.bootci/venv-ansible%s/share/ansible' % version
