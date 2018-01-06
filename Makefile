@@ -9,7 +9,7 @@
 # Yakkety has 2.1.0.0
 # Versions before 1.4 are not currently supported due to
 # kitchen-ansiblepush use of dynamic inventory script
-ANSIBLE_VERSIONS ?= 1.4 1.4.4 1.5.4 1.7.2 1.9.2 2.0.0.2 2.1.0.0 2.2.1.0
+ANSIBLE_VERSIONS ?= 1.4 1.4.4 1.5.4 1.7.2 1.9.2 2.0.0.2 2.1.0.0 2.1.1.0 2.2.1.0
 ANSIBLES=$(patsubst %,.bootci/venv-ansible%, $(filter-out system,$(ANSIBLE_VERSIONS)))
 DOCKER_IMAGES ?= \
 	centos:6 \
