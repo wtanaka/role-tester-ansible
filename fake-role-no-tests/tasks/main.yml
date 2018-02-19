@@ -1,6 +1,5 @@
 ---
 - name: install python-apt on ansible < 1.6.0 and ubuntu et al
-  sudo: yes
   raw: >
     if command -v apt-get; then
        python -c "import apt" ||
@@ -9,9 +8,12 @@
   # Needed since Ansible 2.2 per
   # https://github.com/ansible/ansible/pull/17112/files
   changed_when: False
+  # sudo doesn't work with raw on ansible 2.3.3.x+ so just skip this
+  # task entirely
+  when: ansible_version is defined and ansible_version.major < 2
+  sudo: yes
 
 - name: install python-pycurl on ansible < 1.6.0 and ubuntu et al
-  sudo: yes
   raw: >
     if command -v apt-get; then
        python -c "import pycurl" ||
@@ -20,6 +22,10 @@
   # Needed since Ansible 2.2 per
   # https://github.com/ansible/ansible/pull/17112/files
   changed_when: False
+  # sudo doesn't work with raw on ansible 2.3.3.x+ so just skip this
+  # task entirely
+  when: ansible_version is defined and ansible_version.major < 2
+  sudo: yes
 
 # tasks file for fake-role-no-tests
 - name: fake task

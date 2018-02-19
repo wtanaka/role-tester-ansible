@@ -5,11 +5,17 @@
   tasks:
   - name: install python 2 on ubuntu 16.04 et al
     sudo: yes
-    # Needs trailing ";" under certain combinations of docker, ansible
+    # Needs trailing ";" under certain combinations of docker,
+    # ansible.
+    # It does not seem possible to conditionally include a file in
+    # ansible 1.x without parsing it, which prevents use of "become".
+    # However, in ansible 2.3, "sudo" stopped working for "raw" so we
+    # just try to become root in various ways.
     raw: >
       if command -v apt; then
         test -e /usr/bin/python ||
-        (command -v apt && apt -y update && apt install -y python-minimal)
+        (command -v apt && apt -y update && apt install -y python-minimal) ||
+        (command -v apt && sudo apt -y update && sudo apt install -y python-minimal)
       fi;
     # Needed since Ansible 2.2 per
     # https://github.com/ansible/ansible/pull/17112/files
@@ -23,11 +29,17 @@
 
   - name: install python 2 on fedora 25 et al
     sudo: yes
-    # Needs trailing ";" under certain combinations of docker, ansible
+    # Needs trailing ";" under certain combinations of docker,
+    # ansible.
+    # It does not seem possible to conditionally include a file in
+    # ansible 1.x without parsing it, which prevents use of "become".
+    # However, in ansible 2.3, "sudo" stopped working for "raw" so we
+    # just try to become root in various ways.
     raw: >
       if command -v dnf; then
         test -e /usr/bin/python ||
-        (command -v dnf && dnf install -y python2)
+        (command -v dnf && dnf install -y python2) ||
+        (command -v dnf && sudo dnf install -y python2)
       fi;
     # Needed since Ansible 2.2 per
     # https://github.com/ansible/ansible/pull/17112/files
@@ -41,12 +53,18 @@
 
   - name: install simplejson on CentOS 5 et al
     sudo: yes
-    # Needs trailing ";" under certain combinations of docker, ansible
+    # Needs trailing ";" under certain combinations of docker,
+    # ansible.
+    # It does not seem possible to conditionally include a file in
+    # ansible 1.x without parsing it, which prevents use of "become".
+    # However, in ansible 2.3, "sudo" stopped working for "raw" so we
+    # just try to become root in various ways.
     raw: >
       if command -v yum; then
         python -c "import json" ||
         python -c "import simplejson" ||
-        (command -v yum && yum -y install python-simplejson)
+        (command -v yum && yum -y install python-simplejson) ||
+        (command -v yum && sudo yum -y install python-simplejson)
       fi;
     # Needed since Ansible 2.2 per
     # https://github.com/ansible/ansible/pull/17112/files
