@@ -74,7 +74,9 @@ rewrite: rewritevenv
 		-o "$(DOCKER_IMAGES)"
 
 rewritevenv:
-	.bootci/python.sh -m virtualenv "$@"
+	(. .bootci/common.sh; \
+		retry .bootci/python.sh -m virtualenv "$@"; \
+	)
 	(. "$@"/bin/activate; \
 		"$@"/bin/python -m pip --version; \
 		"$@"/bin/python -m pip install --upgrade pip; \
