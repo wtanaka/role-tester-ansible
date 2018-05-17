@@ -6,6 +6,10 @@ driver:
   #https://github.com/test-kitchen/kitchen-docker/issues/225
   #build_options: "-q"
 
+  # provision_command workaround for Ubuntu 17.10 and 18.04
+  # https://github.com/test-kitchen/kitchen-docker/issues/285
+  provision_command: mkdir -p /run/sshd
+
 # Will be filled out in .kitchen.local.yml
 platforms: []
 
