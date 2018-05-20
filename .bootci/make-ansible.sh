@@ -25,6 +25,8 @@ TARGET="$DIRNAME/venv-ansible$VERSION"
 ABSTARGET="`${DIRNAME}/realpath.sh ${TARGET}`"
 PYTHON="${DIRNAME}"/python.sh
 
+. "${DIRNAME}"/common.sh
+
 pip_local()
 {
   "${PYTHON}" -m pip "$@"
@@ -50,7 +52,7 @@ if [ ! -x "$TARGET"/bin/ansible ]; then
     (
       . "$TARGET"/bin/activate
       "$TARGET/bin/python" -m pip --version
-      "$TARGET/bin/python" -m pip install --isolated --upgrade pip
+      retry "$TARGET/bin/python" -m pip install --isolated --upgrade pip
       "$TARGET/bin/python" -m pip --version
       if grep "^${VERSION}$" "$DIRNAME"/ansible-broken-wheels.txt > /dev/null; then
         ANSIBLE_LIBRARY=share/ansible

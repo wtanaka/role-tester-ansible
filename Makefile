@@ -88,8 +88,8 @@ rewritevenv:
 
 all-ansibles: $(ANSIBLES)
 
-vendor/bundle:
+.bootci/vendor/bundle:
 	bundle install --path "$@"
 
-test: vendor/bundle rewrite all-ansibles
+test: .bootci/vendor/bundle rewrite all-ansibles
 	bundle exec kitchen test all -l $(KITCHEN_LOG_LEVEL)

@@ -21,7 +21,9 @@ set -e
 
 DIRNAME="`dirname $0`"
 
-rm -f "$DIRNAME"/ansible-playbook*.sh
-rm -rf "$DIRNAME"/venv
-rm -rf "$DIRNAME"/venv-ansible*
-find "$DIRNAME"/.. -name "*~" -exec rm \{\} \;
+rm -rf "${DIRNAME}"/../*~
+rm -rf "${DIRNAME}"/../*/*~
+rm -rf "${DIRNAME}"/../.*/*~
+rm -rf "${DIRNAME}"/ansible-playbook*.sh
+rm -rf "${DIRNAME}"/rvm
+rm -rf "${DIRNAME}"/venv-ansible*

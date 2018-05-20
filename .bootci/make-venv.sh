@@ -21,10 +21,15 @@ set -e
 
 DIRNAME="`dirname $0`"
 
+. "${DIRNAME}"/common.sh
+
 "$DIRNAME"/make-virtualenv.sh
 
-"$DIRNAME"/withnopydist.sh "$DIRNAME"/python.sh -m virtualenv "$DIRNAME"/venv
+retry "$DIRNAME"/withnopydist.sh \
+  "$DIRNAME"/python.sh \
+  -m virtualenv \
+  "$DIRNAME"/venv
 (
   . "$DIRNAME"/venv/bin/activate
-  "$DIRNAME"/venv/bin/python -m pip install --isolated --upgrade pip
+  retry "$DIRNAME"/venv/bin/python -m pip install --isolated --upgrade pip
 )

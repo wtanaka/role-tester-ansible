@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2017 Wesley Tanaka
+# Copyright (C) 2018 Wesley Tanaka
 #
 # This file is part of github.com/wtanaka/bootci
 #
@@ -16,27 +16,13 @@
 # You should have received a copy of the GNU General Public License
 # along with github.com/wtanaka/bootci.  If not, see
 # <http://www.gnu.org/licenses/>.
-
-set -e
-
-DIRNAME="`dirname $0`"
-PYTHON="${DIRNAME}"/python.sh
-# Try to put TARGET in a shorter absolute path so that #! line to the
-# python binary does not become too long.  Long lines can lead to "No
-# such file or directory" errors.
-TARGET="${HOME}"/.pcv
-
-. "${DIRNAME}"/common.sh
-
-"$DIRNAME"/make-virtualenv.sh
-
-"${DIRNAME}/withnopydist.sh" "$PYTHON" -m virtualenv "$TARGET"
-
-(
-  . "$TARGET"/bin/activate
-  "$TARGET/bin/python" -m pip --version
-  retry "$TARGET/bin/python" -m pip install --isolated --upgrade pip
-  "$TARGET/bin/python" -m pip --version
-  "$TARGET/bin/python" -m pip install --isolated 'requests[security]'
-  "$TARGET/bin/python" -m pip install --isolated pre-commit
-)
+RETRY_SLEEP_SEC=10
+RETRY_COUNT=5
+retry()
+{
+  for i in $(seq 1 $RETRY_COUNT); do
+    [ $i -gt 1 ] && sleep $RETRY_SLEEP_SEC; "$@" && s=0 && break ||
+      s=$? && >&2 echo "$@: failed try #$i; will retry in $RETRY_SLEEP_SEC sec";
+  done;
+  (exit $s)
+}

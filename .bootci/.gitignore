@@ -1,2 +1,3 @@
 /ansible-playbook*.sh
+/venv
 /venv-ansible*/
