@@ -13,8 +13,23 @@ services:
 before_install:
 - sudo apt-get update -qq
 - sudo apt-get install -y ansible
+
 script:
-- "./_self_test.sh"
+- ./_self_test.sh
+
+stages:
+  - prepare cache
+  - test
+
+cache:
+  directories:
+  - .bootci/venv-ansible1.5.4
+
+jobs:
+  include:
+    - stage: prepare cache
+      script: env BRANCH=temp COMMAND=preparecache ./run.sh
+
 after_failure:
 - "(cd fake-role/role-tester; cat .kitchen/logs/*.log | grep -v '^I, ')"
 - "(cd fake-role-no-tests/role-tester; cat .kitchen/logs/*.log | grep -v '^I, ')"

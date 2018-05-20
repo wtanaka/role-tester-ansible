@@ -60,6 +60,22 @@ wget -O- bit.ly/ansibletest |
     env ANSIBLE_VERBOSE="vvv" sh
 ```
 
+Development
+-----------
+
+To regenerate `all-versions.txt`, run:
+
+```
+pip download ansible==thisdoesnotexist 2>&1 |
+  grep from.versions |
+  cut -d: -f2- |
+  cut -d\) -f1 |
+  sed -e 's/,* /\
+/g' |
+  grep -v '^[ ]*$' |
+  tee all-versions.txt
+```
+
 License
 -------
 
@@ -68,4 +84,4 @@ GPLv2
 Author Information
 ------------------
 
-http://wtanaka.com/
+https://wtanaka.com/

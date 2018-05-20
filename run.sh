@@ -47,16 +47,19 @@ download()
 sys.stdout.buffer.write(u('""$@""').read())"
 }
 
+# The github user to download the role-tester-ansible distribution
+# from.  Default: wtanaka
 if [ -z "$GITHUBUSER" ]; then
   GITHUBUSER=wtanaka
 fi
 
+# The github project name.  Default: role-tester-ansible
 if [ -z "$PROJECT" ]; then
   PROJECT=role-tester-ansible
 fi
 
-# Which version of role-tester-ansible to use, allow overriding with
-# environment variable
+# Which branch/tag/release of role-tester-ansible to use, allow
+# overriding with environment variable
 if [ -z "$BRANCH" ]; then
   BRANCH=master
 fi
@@ -67,6 +70,12 @@ if [ -z "$ROLENAME" ]; then
   ROLENAME="${PWD##*/}"
 fi
 
+if [ -z "$COMMAND" ]; then
+  COMMAND=all
+fi
+
+# Also allow overriding parameters with the command line instead of
+# environment variables.
 while getopts a:b:ho:r: opt; do
   case "$opt" in
     a)
@@ -88,14 +97,16 @@ while getopts a:b:ho:r: opt; do
   esac
 done
 
+# Download the code
 URL=https://github.com/"$GITHUBUSER"/"$PROJECT"/archive/"$BRANCH".tar.gz
 
 retry download "$URL" | tar xvfz -
 
+# Internal environment variable name for ROLENAME
 ROLE_UNDER_TEST="$ROLENAME"
 export ROLE_UNDER_TEST
 
-# Inlined from _functions.sh
+# Inlined from _functions.sh because we're bootstrapping
 ROLE_DIR="."
 ROLE_TESTER_DIR="$PROJECT"-"$BRANCH"
 if [ -d "$ROLE_DIR"/test/integration/default/serverspec ]; then
@@ -108,4 +119,26 @@ if [ -d "$ROLE_DIR"/test/integration/default/serverspec ]; then
    done
 fi
 
-make -s -C "$PROJECT"-"$BRANCH"
+case "$COMMAND" in
+  preparecache)
+    # Not sure if this is ruby-version-independent
+    # "$ROLE_TESTER_DIR/.bootci/make-vendor-bundle.sh"
+    echo "Running preparecache command"
+    if [ -z "$ANSIBLE_VERSIONS" ]; then
+      echo "ANSIBLE_VERSIONS missing"
+      cat "$ROLE_TESTER_DIR"/all-versions.txt | while read VERSION; do
+        echo "generating $VERSION"
+        "$ROLE_TESTER_DIR"/.bootci/make-ansible.sh "$VERSION"
+      done
+    else
+      echo "ANSIBLE_VERSIONS found"
+      for VERSION in $ANSIBLE_VERSIONS; do
+        echo "generating $VERSION"
+        "$ROLE_TESTER_DIR"/.bootci/make-ansible.sh "$VERSION"
+      done
+    fi
+    ;;
+  all)
+    make -s -C "$PROJECT"-"$BRANCH"
+    ;;
+esac
