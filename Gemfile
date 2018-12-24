@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
 group :development do
+  # Artifactory 3.0.0 does not work with Ruby 1.9.3 because it
+  # requires Ruby >= 2.3
+  gem 'artifactory', '< 3.0.0'
   gem 'net-ssh', '2.9.4'
   gem 'kitchen-ansiblepush', '!= 0.5.2'
   # kitchen-docker 2.5.0 is broken, see
