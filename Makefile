@@ -91,6 +91,10 @@ rewritevenv:
 all-ansibles: $(ANSIBLES)
 
 .bootci/vendor/bundle:
+	# Gemfile
+	if [ `(ruby --version | cut -d' ' -f2; echo '2.3') | sort -rV | head -1` \
+			= '2.3' ]; then \
+		cp Gemfile-2.2 Gemfile; else cp Gemfile-current Gemfile; fi
 	bundle install --path "$@"
 
 test: .bootci/vendor/bundle rewrite all-ansibles
