@@ -26,7 +26,6 @@ ANSIBLES=$(patsubst %,.bootci/venv-ansible%, $(filter-out system,$(ANSIBLE_VERSI
 DOCKER_IMAGES ?= \
 	centos:6 \
 	centos:7 \
-	debian:7 \
 	debian:8 \
 	fedora:20 \
 	fedora:25 \
