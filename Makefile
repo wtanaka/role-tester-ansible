@@ -22,7 +22,9 @@ ANSIBLE_VERSIONS ?= \
 	2.2.1.0 \
 	2.4.3.0 \
 	2.5.1 \
-	2.6.16
+	2.6.16 \
+	2.7.8 \
+	2.8.3
 ANSIBLES=$(patsubst %,.bootci/venv-ansible%, $(filter-out system,$(ANSIBLE_VERSIONS)))
 DOCKER_IMAGES ?= \
 	centos:6 \
