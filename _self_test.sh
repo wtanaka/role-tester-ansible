@@ -43,7 +43,7 @@ run_kitchen()
    cp_serverspecs fake-role fake-role/role-tester
    env ROLE_UNDER_TEST=fake-role-no-tests \
       make -s -C fake-role-no-tests/role-tester \
-         ANSIBLE_VERSIONS=system \
+         ANSIBLE_VERSIONS=1.5.4 \
          DOCKER_IMAGES=ubuntu:12.04
    env ROLE_UNDER_TEST=fake-role make -s -C fake-role/role-tester
 }

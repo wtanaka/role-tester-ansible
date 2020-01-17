@@ -11,6 +11,7 @@
 # Zesty has 2.2.1.0
 # Artful has 2.3.1.0
 # Bionic has 2.5.1
+# Focal has 2.9.6
 # Versions before 1.4 are not currently supported due to
 # kitchen-ansiblepush use of dynamic inventory script
 ANSIBLE_VERSIONS ?= \
@@ -20,11 +21,11 @@ ANSIBLE_VERSIONS ?= \
 	2.0.0.2 \
 	2.1.1.0 \
 	2.2.1.0 \
-	2.4.3.0 \
 	2.5.1 \
 	2.6.16 \
 	2.7.8 \
-	2.8.3
+	2.8.3 \
+	2.9.6
 ANSIBLES=$(patsubst %,.bootci/venv-ansible%, $(filter-out system,$(ANSIBLE_VERSIONS)))
 DOCKER_IMAGES ?= \
 	centos:6 \

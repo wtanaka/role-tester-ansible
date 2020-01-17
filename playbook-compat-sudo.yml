@@ -4,7 +4,7 @@
 
   tasks:
   - name: install python 2 on ubuntu 16.04 et al
-    become: yes
+    sudo: yes
     # Needs trailing ";" under certain combinations of docker,
     # ansible.
     # It does not seem possible to conditionally include a file in
@@ -21,14 +21,14 @@
     # https://github.com/ansible/ansible/pull/17112/files
     changed_when: False
     register: result_python2_ubuntu
-    until: result_python2_ubuntu
+    until: result_python2_ubuntu|success
     # Workaround https://github.com/ansible/ansible/issues/16868 and
     # increase default retry count
     retries: 20
     delay: 10
 
   - name: install python 2 on fedora 25 et al
-    become: yes
+    sudo: yes
     # Needs trailing ";" under certain combinations of docker,
     # ansible.
     # It does not seem possible to conditionally include a file in
@@ -45,14 +45,14 @@
     # https://github.com/ansible/ansible/pull/17112/files
     changed_when: False
     register: result_python2_fedora
-    until: result_python2_fedora
+    until: result_python2_fedora|success
     # Workaround https://github.com/ansible/ansible/issues/16868 and
     # increase default retry count
     retries: 20
     delay: 10
 
   - name: install simplejson on CentOS 5 et al
-    become: yes
+    sudo: yes
     # Needs trailing ";" under certain combinations of docker,
     # ansible.
     # It does not seem possible to conditionally include a file in
@@ -70,7 +70,7 @@
     # https://github.com/ansible/ansible/pull/17112/files
     changed_when: False
     register: result_simplejson_centos
-    until: result_simplejson_centos
+    until: result_simplejson_centos|success
     # Workaround https://github.com/ansible/ansible/issues/16868 and
     # increase default retry count
     retries: 20

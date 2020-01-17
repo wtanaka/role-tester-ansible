@@ -14,10 +14,15 @@ import yaml
 
 def suites(ansible_versions):
   kitchen = {}
-  old_ansible_filename = os.path.join(os.path.dirname(__file__),
+  broken_wheel_filename = os.path.join(os.path.dirname(__file__),
       'broken-wheel-versions.txt')
-  with open(old_ansible_filename, 'rb') as fp:
-    old_ansible_versions = fp.read().split()
+  with open(broken_wheel_filename, 'rb') as fp:
+    broken_wheel_versions = fp.read().split()
+
+  use_sudo_filename = os.path.join(os.path.dirname(__file__),
+      'sudo-versions.txt')
+  with open(use_sudo_filename, 'rb') as fp:
+    use_sudo_versions = fp.read().split()
 
   kitchen['suites'] = []
   for version in ansible_versions:
@@ -29,7 +34,10 @@ def suites(ansible_versions):
       suite['provisioner'] = {}
       suite['provisioner']['ansible_playbook_bin'] = \
           '.bootci/ansible-playbook%s.sh' % version
-      if version in old_ansible_versions:
+      if version in use_sudo_versions:
+        suite['provisioner']['playbook'] = \
+            'kitchen-playbook-sudo.yml'
+      if version in broken_wheel_versions:
         suite['provisioner']['raw_arguments'] = \
             '--module-path=.bootci/venv-ansible%s/share/ansible' % version
     kitchen['suites'].append(suite)

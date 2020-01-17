@@ -1,0 +1,44 @@
+version: v1.0
+name: Run _self_test.sh
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+ - name: Inspect Linux environment
+   task:
+      jobs:
+        - name: Print environment variables
+          commands:
+            - echo $SEMAPHORE_PIPELINE_ID
+            - echo $HOME
+            - echo $SEMAPHORE_GIT_DIR
+            - echo $PI
+      prologue:
+          commands:
+            - checkout
+      env_vars:
+           - name: PI
+             value: "3.14159"
+
+ - name: Run self test
+   task:
+      jobs:
+        - name: Run self test
+          commands:
+            - checkout
+            - ./_self_test.sh
+        - name: PATH variable
+          commands:
+            - echo $PATH
+      epilogue:
+        always:
+          commands:
+            - echo "The job finished with $SEMAPHORE_JOB_RESULT"
+        on_pass:
+          commands:
+            - echo "Executed when the SEMAPHORE_JOB_RESULT is passed"
+        on_fail:
+          commands:
+            - echo "Executed when the SEMAPHORE_JOB_RESULT is failed"
