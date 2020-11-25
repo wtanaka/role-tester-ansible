@@ -35,6 +35,7 @@ DOCKER_IMAGES ?= \
 	fedora:25 \
 	ubuntu:12.04 \
 	ubuntu:18.04 \
+	ubuntu:20.04 \
 # "v" for verbose, empty string for non-verbose.  Make defaults to
 # empty string
 # PIP_VERBOSE ?=
